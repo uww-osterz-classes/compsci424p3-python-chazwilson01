@@ -1,6 +1,6 @@
 """
 COMPSCI 424 Program 3
-Name: 
+Name: Charlie Wilson 
 """
 
 import os
@@ -152,21 +152,27 @@ def manual():
     
     while cmd.lower() != "end":
         lst = cmd.split()
-        I = int(lst[1])
-        resource = int(lst[3])-1
-        process = int(lst[5])-1
+        if len(lst) != 6:
+            print("Valid command not entered. Enter command in following format:")
+            print("(request or release) I of R for P")
+        else:
+            I = int(lst[1])
+            resource = int(lst[3])-1
+            process = int(lst[5])-1
 
-        if lst[0].lower() == "request":
-            print("Before: ")
-            printData()
-            handleRequest(process, resource, I)
+            if lst[0].lower() == "request":
+                # print("Before: ")
+                # printData()
+                handleRequest(process, resource, I)
 
-        elif lst[0].lower() == "release":
-            print("After: ")
-            printData()
-            handleRelease(process, resource, I)
+            elif lst[0].lower() == "release":
+                # print("Before: ")
+                # printData()
+                handleRelease(process, resource, I)
 
-
+            else:
+                print("Valid command not entered. Enter command in following format:")
+                print("(request or release) I of R for P")
         cmd = input("Enter command: ")
 
 def handleRequest(process, resource, I):
