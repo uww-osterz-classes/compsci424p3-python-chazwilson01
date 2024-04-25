@@ -117,19 +117,31 @@ def auto(process):
         if requests == releases:
             cmd = "request"
             resource = random.randint(0, num_resources-1)
-            I = random.randint(0, int(max[process][resource]) )
+
+            I = random.randint(1, int(max[process][resource]) )
             with array_lock:
                 handleRequest(process, resource, I)
             requests -= 1
         else: 
             cmd = "release"
-            resource = random.randint(0, num_resources-1)
-            I = random.randint(0, int(allocated[process][resource]) )
+            lst = []
+            while len(lst) < num_resources:
+                resource = random.randint(0, num_resources-1)
+                if int(allocated[process][resource]) != 0:
+                    break
+                if resource not in lst:
+                    lst.append(resource)
+                
+            
+            I = random.randint(1, int(allocated[process][resource]) )
+            
             with array_lock:
                 handleRelease(process, resource, I)
             releases -= 1
 
-
+    # printData()
+    # print()
+    # print()
 
                 
 
@@ -255,7 +267,7 @@ def isSafeState():
             # print("System is not in safe state")
             return False
         
-    print("System is in safe state.")
+    # print("System is in safe state.")
     return True
 def printData():
     global available, allocated
